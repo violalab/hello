@@ -14,11 +14,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { PostWhereUniqueInput } from "../../post/base/PostWhereUniqueInput";
 
 @InputType()
-class UserWhereInput {
+class PostWhereInput {
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -32,25 +32,15 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: () => UserWhereUniqueInput,
   })
-  @Type(() => StringNullableFilter)
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  firstName?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  lastName?: StringNullableFilter;
+  userId?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -61,7 +51,7 @@ class UserWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
-  username?: StringFilter;
+  title?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -72,19 +62,7 @@ class UserWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  email?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => PostWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PostWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PostWhereUniqueInput, {
-    nullable: true,
-  })
-  posts?: PostWhereUniqueInput;
+  description?: StringNullableFilter;
 }
 
-export { UserWhereInput as UserWhereInput };
+export { PostWhereInput as PostWhereInput };

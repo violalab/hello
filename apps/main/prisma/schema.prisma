@@ -17,4 +17,15 @@ model User {
   email     String?  @unique
   password  String
   roles     Json
+  posts     Post?
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      User?    @relation(fields: [userId], references: [id])
+  userId      String?  @unique
+  title       String
+  description String?
 }

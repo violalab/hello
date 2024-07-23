@@ -5,7 +5,9 @@ import {
   ShowProps,
   TextField,
   DateField,
+  ReferenceField,
 } from "react-admin";
+import { POST_TITLE_FIELD } from "../post/PostTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -19,6 +21,9 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Username" source="username" />
         <TextField label="Email" source="email" />
         <TextField label="Roles" source="roles" />
+        <ReferenceField label="posts" source="post.id" reference="Post">
+          <TextField source={POST_TITLE_FIELD} />
+        </ReferenceField>
       </SimpleShowLayout>
     </Show>
   );

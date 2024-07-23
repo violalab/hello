@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
@@ -6,7 +7,11 @@ import {
   TextInput,
   PasswordInput,
   SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
+
+import { PostTitle } from "../post/PostTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
@@ -24,6 +29,9 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceInput source="posts.id" reference="Post" label="posts">
+          <SelectInput optionText={PostTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );
