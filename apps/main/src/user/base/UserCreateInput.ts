@@ -11,10 +11,17 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, MaxLength, IsOptional } from "class-validator";
+import {
+  IsString,
+  MaxLength,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { PostWhereUniqueInput } from "../../post/base/PostWhereUniqueInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class UserCreateInput {
@@ -75,6 +82,18 @@ class UserCreateInput {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   roles!: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => PostWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PostWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PostWhereUniqueInput, {
+    nullable: true,
+  })
+  posts?: PostWhereUniqueInput | null;
 }
 
 export { UserCreateInput as UserCreateInput };
